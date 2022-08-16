@@ -12,4 +12,4 @@
 [http.services]
   [http.services.noop.loadBalancer]
     [[http.services.noop.loadBalancer.servers]]
-      url = "http://yourServerAddress.com"
+      url = "http://yourServerAddress.com"  # Your domain where your backend is hosted goes here

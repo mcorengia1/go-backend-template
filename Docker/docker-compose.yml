@@ -4,20 +4,20 @@ services:
         image: traefik:2.6
         restart: always
         ports:
-            - '80:80'
-            - '443:443'
-        volumes:
-            - /traefik:/etc/traefik
-            - /var/run/docker.sock:/var/run/docker.sock:ro
+            - '80:80' # http connections
+            - '443:443' # https connections
+        volumes: 
+            - /traefik:/etc/traefik # traefik configuration files volume route
+            - /var/run/docker.sock:/var/run/docker.sock:ro # Docker sock for monitoring
     ExampleBackend:
-        image: example-backend
+        image: example-backend # Your docker image
         restart: always
         ports:
-            -   10000
-        labels:
+            - 10000 # Listening internal port
+        labels: # In all the Labels change 'exampleBackend' for the name of your service
             - 'traefik.enable=true'
-            - 'traefik.http.routers.ExampleBackend.rule=(Host(`yourServerAddress.com`)'
+            - 'traefik.http.routers.ExampleBackend.rule=(Host(`yourServerAddress.com`)' # Your domain where your backend is hosted goes here
             - 'traefik.http.routers.ExampleBackend.tls=true'
             - 'traefik.http.routers.ExampleBackend.tls.certresolver=lets-encrypt'
-            - 'traefik.http.routers.ExampleBackend.service=svc_ExampleBackend'
-            - 'traefik.http.services.svc_ExampleBackend.loadbalancer.server.port=10000'
+            - 'traefik.http.routers.ExampleBackend.service=svc_ExampleBackend' 
+            - 'traefik.http.services.svc_ExampleBackend.loadbalancer.server.port=10000' # The server's internal listening port

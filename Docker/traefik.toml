@@ -15,5 +15,5 @@
 
 [certificatesResolvers.lets-encrypt.acme]
   storage = "/etc/traefik/acme.json"
-  email = "you@email.com"
+  email = "you@email.com" # Your email goes here
   [certificatesResolvers.lets-encrypt.acme.tlsChallenge]

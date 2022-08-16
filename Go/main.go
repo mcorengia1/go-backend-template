@@ -15,10 +15,13 @@ func handleRequest(r *mux.Router) {
 	getR := r.Methods(http.MethodGet).Subrouter()
 	getR.HandleFunc("/", Handlers.ExampleHandler)
 
-	// The CORS options are commented for testing only
+	// See the documentation of the cors library there are many configurations according to your needs
+	// Origins from all the combinations of the domains that are going to make the requests must be included
+	// ie: http:xxxx.com / https:xxxx.com / http:www.xxxx.com / https:www.xxxx.com
 	c := cors.New(cors.Options{
 		//AllowCredentials: true,
-		//AllowedOrigins: []string{"http://yourdomain.com", "https://yourdomain.com", "http://www.yourdomain.com", "https://www.yourdomain.com"},
+		//AllowedOrigins: []string{"http://yourdomain.com", "https://yourdomain.com",
+		//"http://www.yourdomain.com", "https://www.yourdomain.com"},
 	})
 
 	handler := c.Handler(r)
